@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/main.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+<!--
+<div class="nav">
+    <a class="logo">SpringMall</a>
+    <a>List</a>
+    <a>Write</a>
+</div>
+-->
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+
+<div class="card" th:each="iii : ${items}">
+    <img src="http://placehold.co/300">
+    <div>
+    <h4 th:text="${iii.title}"></h4>
+    <h4 th:text="${iii.price}"></h4>
+        <a th:href="@{ '/detail/' + ${iii.id} }">링크</a>
+        <a th:href="@{ '/edit/' + ${iii.id} }">✏️</a>
+        <span th:onclick="fetch('/AAA?id=[[${iii.id}]]', { method : 'DELETE'})">🗑️</span>
+    </div>
+</div>
+
+<button class="btn1">버튼</button>
+<button class="btn2">버튼</button>
+<!--fetch라는 자바스크립트 기본함수로 url로 GET요청이 날라감 -->
+
+<!--html페이지 안의 btn을 찾아 클릭시 다음 기능을 실행하시오 라는 뜻이다. -->
+<!--fetch()에서 보낼 메세지가 없다면 ('/test2')만 보내도 된다.-->
+
+<!--method는 보낼 요청을 날린다 'POST''GET''DELETE'-->
+<!--BODY는  요청을 날리면 보낼 메세지이다. key value 형식으로 보낸는것이 안정적이다.-->
+<!--headers는 전송할 속성이다.아래는 json데이터를 보낸다는 뜻이다.-->
+
+<script>
+fetch('/test1')
+
+document.querySelectorAll('.btn1')[0].addEventListener('click',function(){
+   fetch('/test2?name1=적랑&name2=청랑')})
+
+document.querySelectorAll('.btn2')[0].addEventListener('click',function(){
+  fetch('/test3', {
+  method : 'POST',
+  headers : {'Content-Type' : 'application/json' },
+  body : JSON.stringify({name3 : 'kim'})
+    })
+  })
+
+</script>
+</body>
+</html>

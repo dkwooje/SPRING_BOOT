@@ -1,0 +1,22 @@
+package practice.semo.item;
+
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@Entity
+@ToString
+@Table(indexes = @Index(columnList = "title", name = "작명"))
+public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 알아서 ID를 1씩 증가후 저장
+    public Integer id;
+    private String title;
+    private Integer price;
+
+}
+//new Item().title
