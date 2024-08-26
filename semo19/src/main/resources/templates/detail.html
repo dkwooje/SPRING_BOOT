@@ -19,6 +19,12 @@
     <h4 th:text="${data.title}">금도금 바지</h4>
     <p th:text="${data.price + '원'}">7억</p>
 </div>
+<form action="/comment" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input name="content">
+    <input name="parent" th:value="${data.id}" style="display : none">
+    <button>전송</button>
+</form>
 
 </body>
 </html>

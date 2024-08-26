@@ -9,18 +9,29 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+
+
+    public void addMember(String username, String password, String displayName){
+        DBMember member =  new DBMember();
+        var hash = passwordEncoder.encode(password);
+        member.setPassword(hash);
+        member.setUsername(username);
+        member.setDisplayName(displayName);
+        memberRepository.save(member);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,9 +44,9 @@ public class MyUserDetailsService implements UserDetailsService {
         var user = result.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("일반유저")); //나중에 API에서 현재 유저의 정보 출력 가능
-
-
-        return new User(user.getUsername(), user.getPassword(), authorities);
+        var A = new CustomUser(user.getUsername(),user.getPassword(), authorities);
+         A.displayName = user.getDisplayName();
+        return A;
 
 
     }
