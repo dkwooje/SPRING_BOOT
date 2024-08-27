@@ -12,7 +12,8 @@
 
 <div th:replace = "~{ nav.html::navbar}"></div>
 
-<form action="/editer" method="POST">
+<form th:action="@{'/edit/' + ${code.id} }" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="id" th:value="${code.id}" ><!--style="display:none" 유저가 못보게 숨김-->
     <input name="title" th:value="${code.title}"> <!-- value: input값 입력가능-->
     <input name="price" th:value="${code.price}">

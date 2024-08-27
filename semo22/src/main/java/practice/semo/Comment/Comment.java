@@ -1,4 +1,4 @@
-package practice.semo.Comment;
+package practice.semo.comment;
 
 
 import jakarta.persistence.*;
@@ -7,15 +7,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@ToString
 @Getter
 @Setter
-@ToString
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String  username;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
     @Column(length = 1000)
-    private String  content;
-    private Integer  parentId;
+    private String content;
+    private Long parentId;
 }

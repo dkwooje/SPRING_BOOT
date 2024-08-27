@@ -4,22 +4,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import practice.semo.comment.Comment;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item,Integer> {
+public interface ItemRepository extends JpaRepository<Item,Long> {
 
     Page<Item> findPageBy(Pageable page);//파라미터!!!!
-    // Slice<Item> findPageBy(Pageable page);//사용가능
+    List<Item> findAllByTitleContains(String title);
 
-    List<Item> findAllBytitleContains(String title);
+  //@Query(value = "select * from item where match(title) against(?1)", nativeQuery = true)
+   // List<Item> rawQuery1(String text);
 
-
-    //full text index
-    @Query(value = "select * from item where match(title) against(?1) ", nativeQuery = true)
-    List<Item> rawQuery1(String text);
-
-
+  // List<Comment> findAllbyParentId(Long parentId);
 }
-//rawQuery1(3);
-//rawQuery1(3);

@@ -16,15 +16,8 @@ public class ListObject {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
-/*
-    public ListObject(ItemRepository itemRepository, ItemService itemService) {
-        this.itemRepository = itemRepository;
-        this.itemService = itemService;
-    }
-    //@RequiredArgsConstructor사용하지 않을시 문법
-    //object알아서 뽑아서 itemService itemRepository에 넣으라는 뜻
-    //이 원리가 container와 bean이다.
-*/
+
+
     @GetMapping("/list")
     List<Item> list(Model model) {
         List<Item> result = itemRepository.findAll();
@@ -75,49 +68,12 @@ public class ListObject {
         itemRepository.deleteById(id);
         return "redirect:/list";}
 
-/*
-    @PostMapping("/edit/{id}")
-    String editItem(){
 
-       Item item = new Item();
-      //  item.setId(1); //ID가 1인 행을 덮어쓰는 기능
-        item.setTitle("골프");
-        item.setPrice(40000);
-        itemRepository.save(item);
-
-        return "redirect:/list";
-    }
-*/
 
     @PostMapping("/edit/{id}")
     String editItem(@RequestParam String title, @RequestParam Integer price ,int id){
-                         //@RequestParam 생략 가능
-        Item item = new Item();
-        item.setId(id);
-        item.setPrice(price);
-        item.setTitle(title);
-        itemRepository.save(item);
-
+            itemService.editItem(title,price,id);
         return "redirect:/list";
         }
 
-
-// AjAX:새로고침없이 서버로 요청을 날리는 자바스크립트 코드
-        @GetMapping("/test2")
-        String test1(@RequestParam String name1, String name2){
-            System.out.println("GET요청들어옴");
-            System.out.println(name1);
-            System.out.println(name2);
-            return "redirect:/list";}
-        //새로고침시 GET요청을 날림
-
-            @PostMapping("/test3")
-            String test2(@RequestBody Map<String, Object> body){ //RequestParam:FORM데이터 출력
-                System.out.println(body);                       //RequestBody:Body데이터 출력
-                System.out.println(body.get("name3"));
-                return "redirect:/list";
-                //새로고침시 GET요청을 날림
-
-
-    }
 }

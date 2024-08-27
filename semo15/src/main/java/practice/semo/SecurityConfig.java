@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/") //로그인 성공시 들어가는 url
                       //  .failureUrl("/") //실패시 이돟하는 url
                 );
+        // http.logout(logout -> logout.logoutUrl("/logout"));
 
         return http.build();
     }

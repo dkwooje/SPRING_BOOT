@@ -1,34 +1,33 @@
-package practice.semo.Comment;
+package practice.semo.comment;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import practice.semo.Member.CustomUsers;
+import practice.semo.Member.CustomUser;
 
-
-@Controller
 @RequiredArgsConstructor
+@Controller
 public class CommentController {
 
     private final CommentRepository commentRepository;
-    //@PreAuthorize()
+
+
     @PostMapping("/comment")
-    String postComment(
-            @RequestParam String content,
-            @RequestParam Long parent,
-            Authentication auth)
-    {
-        CustomUsers user = (CustomUsers)auth.getPrincipal();
+    String postComment(String content,
+                       Long parent,
+                       Authentication auth){
+       CustomUser user =(CustomUser) auth.getPrincipal();
+
         var data = new Comment();
         data.setContent(content);
         data.setUsername(user.getUsername());
         data.setParentId(parent);
         commentRepository.save(data);
-        return"redirect:/list";
+
+        return  "redirect:/list";
     }
 
-}
 
+}

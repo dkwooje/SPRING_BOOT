@@ -16,35 +16,24 @@ public class MemberController {
 
     private final  MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MemberService memberService;
 
     @GetMapping("/register")
     String register(){
         return "register.html";
     }
-/*
-    @PostMapping("/member")
-    String addMember(String username, String password, String displayName){
-       DBMember member =  new DBMember();
-       var hash = passwordEncoder.encode(password);
-       member.setPassword(password);
-       member.setUsername(username);
-       member.setDisplayName(displayName);
-        memberRepository.save(member);
-        return "redirect:/list";
-    }
 
- */
+
+
+
 @PostMapping("/member")
 String addMember(String username,
-                 String password,
-                 String displayName
+                 String displayName,
+                 String password
+
 ){
-    DBMember member =  new DBMember();
-    var hash = new BCryptPasswordEncoder().encode(password);
-    member.setPassword(hash);
-    member.setUsername(username);
-    member.setDisplayName(displayName);
-    memberRepository.save(member);
+
+    memberService.addMember(username,displayName,password);
     return "redirect:/list";
 }
 }

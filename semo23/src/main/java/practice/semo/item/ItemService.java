@@ -19,17 +19,22 @@ public class ItemService {
             itemRepository.save(item);
         }
 
-/*
-    public void editItem(String title, Integer price, int id){
+
+    public void editItem(String title, Integer price, Long id){
 
         Item item = new Item();
-        item.setTitle("골프");
-        item.setPrice(40000);
         item.setId(id);
+        item.setPrice(price);
+        item.setTitle(title);
         itemRepository.save(item);
 
        }
 
- */
+    public void deleteItem(Long id){
+        itemRepository.deleteById(id);
+
+    }
+
+
     }
 

@@ -30,11 +30,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())//csrf기능 켜고 끄기
-                .ignoringRequestMatchers("/login")
+        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository()) //csrf기능 키기
+                .ignoringRequestMatchers("/login")  //해당 페이지에서 csrf기능 끄기
         );
-
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );
@@ -43,7 +41,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/") //로그인 성공시 들어가는 url
                       //  .failureUrl("/") //실패시 이돟하는 url
                 );
-          http.logout(logout -> logout.logoutUrl("/logout"));
+        // http.logout(logout -> logout.logoutUrl("/logout"));
 
         return http.build();
     }

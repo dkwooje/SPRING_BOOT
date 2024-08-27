@@ -9,13 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-<!--
-<div class="nav">
-    <a class="logo">SpringMall</a>
-    <a>List</a>
-    <a>Write</a>
-</div>
--->
+
 
 <div th:replace="~{nav.html::navbar}"></div>
 
@@ -26,12 +20,21 @@
     <h4 th:text="${iii.title}"></h4>
     <h4 th:text="${iii.price}"></h4>
         <a th:href="@{ '/edit/' + ${iii.id} }">✏️</a>
-        <span th:onclick="fetch('/AAA?id=[[${iii.id}]]', { method : 'DELETE'})">🗑️</span>
+        <a th:href="@{'/detail/' + ${iii.id} }">링크</a>
     </div>
+    <form th:action="@{'/delete/' + ${iii.id}}" method="POST">
+        <button type="submit">삭제</button>
+    </form>
+
 </div>
 
-<button class="btn1">버튼</button>
-<button class="btn2">버튼</button>
+
+    <a th:href="@{'/list/page/' + 1 }">1</a>
+    <a th:href="@{'/list/page/' + 2 }">2</a>
+    <a th:href="@{'/list/page/' + 3 }">3</a>
+    <a th:href="@{'/list/page/' + 4 }">4</a>
+    <a th:href="@{'/list/page/' + 5 }">5</a>
+
 
 </body>
 </html>
