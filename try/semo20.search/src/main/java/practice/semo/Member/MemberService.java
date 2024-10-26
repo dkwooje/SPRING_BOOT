@@ -48,6 +48,9 @@ public class MemberService implements UserDetailsService {
          A.displayName = user.getDisplayName();
         return A;
 
+        /*
+        해시 인코딩을 사용하여 비밀번호 적용
+         */
 
     }
 }
